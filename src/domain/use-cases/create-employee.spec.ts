@@ -1,10 +1,16 @@
 import { expect, test } from 'vitest'
 import { CreateEmployeeUseCase } from './create-employee'
+import { EmployeeRepositorie } from '../repositories/employee-repositorie'
+import { Employee } from '../entities/employee'
 
-test('create an employee', () => {
-  const createEmployee = new CreateEmployeeUseCase()
+const fakeEmployeeRepositorie: EmployeeRepositorie = {
+  create: async (employee: Employee) => {},
+}
 
-  const employee = createEmployee.execute({
+test('create an employee', async () => {
+  const createEmployee = new CreateEmployeeUseCase(fakeEmployeeRepositorie)
+
+  const employee = await createEmployee.execute({
     name: 'Fuji',
     responsibility: 'deliveryman',
   })
