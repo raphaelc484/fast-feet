@@ -1,18 +1,16 @@
-import { randomUUID } from 'node:crypto'
+import { Entity } from '../../core/entities/entities'
 
 interface EmployeeProps {
   name: string
   responsibility: string
 }
 
-export class Employee {
-  public id?: string
-  public name: string
-  public responsibility: string
+export class Employee extends Entity<EmployeeProps> {
+  get name() {
+    return this.props.name
+  }
 
-  constructor(props: EmployeeProps, id?: string) {
-    this.id = id ?? randomUUID()
-    this.name = props.name
-    this.responsibility = props.responsibility
+  get responsibility() {
+    return this.props.responsibility
   }
 }
