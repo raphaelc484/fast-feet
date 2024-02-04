@@ -6,8 +6,9 @@ interface ReceiverProps {
   name: string
   address: string
   phonenumber: string
-  longitude: string
-  latitude: string
+  zipcode: string
+  // longitude: string
+  // latitude: string
   createdAt: Date
   updatedAt?: Date
 }
@@ -40,23 +41,32 @@ export class Receiver extends Entity<ReceiverProps> {
     this.touch()
   }
 
-  get longitude() {
-    return this.props.longitude
+  get zipcode() {
+    return this.props.zipcode
   }
 
-  set longitude(longitude: string) {
-    this.props.longitude = longitude
+  set zipcode(zipcode: string) {
+    this.props.zipcode = zipcode
     this.touch()
   }
 
-  get latitude() {
-    return this.props.latitude
-  }
+  // get longitude() {
+  //   return this.props.longitude
+  // }
 
-  set latitude(latitude: string) {
-    this.props.latitude = latitude
-    this.touch()
-  }
+  // set longitude(longitude: string) {
+  //   this.props.longitude = longitude
+  //   this.touch()
+  // }
+
+  // get latitude() {
+  //   return this.props.latitude
+  // }
+
+  // set latitude(latitude: string) {
+  //   this.props.latitude = latitude
+  //   this.touch()
+  // }
 
   get createdAt() {
     return this.props.createdAt

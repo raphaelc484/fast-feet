@@ -9,4 +9,14 @@ export class InMemoryEmployeeFakeRepositories
   async create(employee: Employee): Promise<void> {
     this.items.push(employee)
   }
+
+  async findWithCPF(cpf: string): Promise<Employee | null> {
+    const employee = this.items.find((item) => item.cpf === cpf)
+
+    if (!employee) {
+      return null
+    }
+
+    return employee
+  }
 }

@@ -5,6 +5,9 @@ import { Optional } from '@/core/types/optional'
 interface EmployeeProps {
   name: string
   responsibility: string
+  cpf: string
+  email: string
+  password: string
   createdAt: Date
   updatedAt?: Date
 }
@@ -25,6 +28,28 @@ export class Employee extends Entity<EmployeeProps> {
 
   set responsibility(responsibility: string) {
     this.props.responsibility = responsibility
+    this.touch()
+  }
+
+  get cpf() {
+    return this.props.cpf
+  }
+
+  get password() {
+    return this.props.password
+  }
+
+  set password(password: string) {
+    this.props.password = password
+    this.touch()
+  }
+
+  get email() {
+    return this.props.email
+  }
+
+  set email(email: string) {
+    this.props.email = email
     this.touch()
   }
 
