@@ -7,6 +7,9 @@ interface ReceiverProps {
   address: string
   phonenumber: string
   zipcode: string
+  cpf: string
+  email: string
+  password: string
   // longitude: string
   // latitude: string
   createdAt: Date
@@ -47,6 +50,28 @@ export class Receiver extends Entity<ReceiverProps> {
 
   set zipcode(zipcode: string) {
     this.props.zipcode = zipcode
+    this.touch()
+  }
+
+  get cpf() {
+    return this.props.cpf
+  }
+
+  get password() {
+    return this.props.password
+  }
+
+  set password(password: string) {
+    this.props.password = password
+    this.touch()
+  }
+
+  get email() {
+    return this.props.email
+  }
+
+  set email(email: string) {
+    this.props.email = email
     this.touch()
   }
 

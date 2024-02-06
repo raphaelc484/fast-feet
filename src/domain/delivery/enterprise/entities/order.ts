@@ -3,12 +3,23 @@ import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
+export enum OrderStatus {
+  AwaitingProcessing = 'Awaiting Processing',
+  Processing = 'Processing',
+  InTransit = 'In Transit',
+  OutForDelivery = 'Out for Delivery',
+  Delivered = 'Delivered',
+  AttemptUnsuccessful = 'Delivery Attempt Unsuccessful',
+  HeldAtCustoms = 'Held at Customs',
+  ReturnedToSender = 'Returned to Sender',
+}
+
 interface OrderProps {
   productName: string
-  employeeId: UniqueEntityId
+  employeeId: UniqueEntityId | null
   receiverId: UniqueEntityId
   slug: Slug
-  status: string
+  status: OrderStatus
   createdAt: Date
   updatedAt?: Date
 }
@@ -28,6 +39,11 @@ export class Order extends Entity<OrderProps> {
     return this.props.employeeId
   }
 
+  set employeeId(employeeId: UniqueEntityId | null) {
+    this.props.employeeId = employeeId
+    this.touch()
+  }
+
   get receiverId() {
     return this.props.receiverId
   }
@@ -40,7 +56,7 @@ export class Order extends Entity<OrderProps> {
     return this.props.status
   }
 
-  set status(status: string) {
+  set status(status: OrderStatus) {
     this.props.status = status
     this.touch()
   }
@@ -58,13 +74,14 @@ export class Order extends Entity<OrderProps> {
   }
 
   static create(
-    props: Optional<OrderProps, 'createdAt' | 'slug'>,
+    props: Optional<OrderProps, 'createdAt' | 'slug' | 'employeeId'>,
     id?: UniqueEntityId,
   ) {
     const order = new Order(
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.productName),
+        employeeId: null,
         createdAt: new Date(),
       },
       id,

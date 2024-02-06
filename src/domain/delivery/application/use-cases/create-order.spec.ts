@@ -14,10 +14,10 @@ describe('Create order use-case', () => {
   it('should be able to create a new order', async () => {
     const result = await sut.execute({
       productName: 'test item',
-      employeeId: '1',
       receiverId: '2',
     })
 
-    expect(inMemoryOrderFakeRepositories.items[0]).toEqual(result)
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryOrderFakeRepositories.items[0]).toEqual(result.value?.order)
   })
 })

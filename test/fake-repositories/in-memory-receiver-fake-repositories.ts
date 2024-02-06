@@ -9,4 +9,14 @@ export class InMemoryReceiverFakeRepositories
   async create(receiver: Receiver): Promise<void> {
     this.items.push(receiver)
   }
+
+  async findWithCPF(cpf: string): Promise<Receiver | null> {
+    const receiver = this.items.find((item) => item.cpf === cpf)
+
+    if (!receiver) {
+      return null
+    }
+
+    return receiver
+  }
 }
