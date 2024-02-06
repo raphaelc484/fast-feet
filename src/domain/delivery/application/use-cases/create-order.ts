@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Order, OrderStatus } from '../../enterprise/entities/order'
+import { Order } from '../../enterprise/entities/order'
 import { OrderRepositorieContract } from '../repositories-contracts/order-repositorie-contracts'
 import { Either, right } from '@/core/either'
 
@@ -20,7 +20,7 @@ export class CreateOrderUseCase {
     const order = Order.create({
       productName,
       receiverId: new UniqueEntityId(receiverId),
-      status: OrderStatus.AwaitingProcessing,
+      status: 'Awaiting Processing',
     })
 
     await this.orderRepositorieContract.create(order)

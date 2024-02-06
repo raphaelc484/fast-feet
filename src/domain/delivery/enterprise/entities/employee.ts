@@ -1,10 +1,11 @@
 import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { Responsibility } from './types/responsible_position'
 
 interface EmployeeProps {
   name: string
-  responsibility: string
+  responsibility: Responsibility
   cpf: string
   email: string
   password: string
@@ -26,7 +27,7 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.responsibility
   }
 
-  set responsibility(responsibility: string) {
+  set responsibility(responsibility: Responsibility) {
     this.props.responsibility = responsibility
     this.touch()
   }

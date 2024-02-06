@@ -2,17 +2,7 @@ import { Slug } from './value-objects/slug'
 import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
-
-export enum OrderStatus {
-  AwaitingProcessing = 'Awaiting Processing',
-  Processing = 'Processing',
-  InTransit = 'In Transit',
-  OutForDelivery = 'Out for Delivery',
-  Delivered = 'Delivered',
-  AttemptUnsuccessful = 'Delivery Attempt Unsuccessful',
-  HeldAtCustoms = 'Held at Customs',
-  ReturnedToSender = 'Returned to Sender',
-}
+import { OrderStatus } from './types/order_status'
 
 interface OrderProps {
   productName: string
