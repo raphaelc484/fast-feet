@@ -11,6 +11,7 @@ export function makeEmployee(override: Partial<Employee>, id?: UniqueEntityId) {
       cpf: generateCPF(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      ...override,
     },
     id,
   )
