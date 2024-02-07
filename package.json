@@ -6,6 +6,7 @@
 		"lint:fix": "eslint src --ext .ts --fix"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^8.4.0",
 		"@rocketseat/eslint-config": "^2.1.0",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/node": "^20.11.13",

@@ -2,15 +2,21 @@ import { InMemoryEmployeeFakeRepositories } from 'test/fake-repositories/in-memo
 import { CreateEmployeeUseCase } from './create-employee'
 import { WrongJobError } from '@/core/errors/errors/wrong-job-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
+import { FakeHasher } from 'test/cryptography/fake-hasher'
 
 let inMemoryEmployeeFakeRepositories: InMemoryEmployeeFakeRepositories
+let fakeHasher: FakeHasher
 let sut: CreateEmployeeUseCase
 
 describe('Create employee use-case', () => {
   beforeEach(async () => {
     inMemoryEmployeeFakeRepositories = new InMemoryEmployeeFakeRepositories()
+    fakeHasher = new FakeHasher()
 
-    sut = new CreateEmployeeUseCase(inMemoryEmployeeFakeRepositories)
+    sut = new CreateEmployeeUseCase(
+      inMemoryEmployeeFakeRepositories,
+      fakeHasher,
+    )
   })
 
   it('should be able to create a new employee', async () => {

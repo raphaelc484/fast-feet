@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either'
 import { Employee } from '../../enterprise/entities/employee'
 import { EmployeeRepositorieContract } from '../repositories-contracts/employee-repositorie-contract'
-import { hash } from 'bcryptjs'
 import { WrongJobError } from '@/core/errors/errors/wrong-job-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
+import { HashGenerator } from '../cryptography/hash-generator'
 
 interface EmployeePropsRequest {
   name: string
@@ -13,13 +13,16 @@ interface EmployeePropsRequest {
   email: string
 }
 
-type EmployeePropsReponse = Either<
+type EmployeePropsResponse = Either<
   UserAlreadyExistsError | WrongJobError,
   { employee: Employee }
 >
 
 export class CreateEmployeeUseCase {
-  constructor(private employeeRepositorie: EmployeeRepositorieContract) {}
+  constructor(
+    private employeeRepositorie: EmployeeRepositorieContract,
+    private hashGenerator: HashGenerator,
+  ) {}
 
   async execute({
     name,
@@ -27,7 +30,7 @@ export class CreateEmployeeUseCase {
     cpf,
     password,
     email,
-  }: EmployeePropsRequest): Promise<EmployeePropsReponse> {
+  }: EmployeePropsRequest): Promise<EmployeePropsResponse> {
     const findCPF = await this.employeeRepositorie.findWithCPF(cpf)
 
     if (findCPF) {
@@ -38,7 +41,7 @@ export class CreateEmployeeUseCase {
       return left(new WrongJobError())
     }
 
-    const password_hash = await hash(password, 6)
+    const password_hash = await this.hashGenerator.hash(password)
 
     const employee = Employee.create({
       name,

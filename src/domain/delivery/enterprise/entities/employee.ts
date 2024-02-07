@@ -1,11 +1,11 @@
 import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
-import { Responsibility } from './types/responsible_position'
+import { Responsibility_Position } from './types/responsible_position'
 
 interface EmployeeProps {
   name: string
-  responsibility: Responsibility
+  responsibility: Responsibility_Position
   cpf: string
   email: string
   password: string
@@ -27,7 +27,7 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.responsibility
   }
 
-  set responsibility(responsibility: Responsibility) {
+  set responsibility(responsibility: Responsibility_Position) {
     this.props.responsibility = responsibility
     this.touch()
   }
@@ -64,6 +64,10 @@ export class Employee extends Entity<EmployeeProps> {
 
   private touch() {
     this.props.updatedAt = new Date()
+  }
+
+  isValidResponsibility(job: string): boolean {
+    return job.includes(this.responsibility)
   }
 
   static create(

@@ -1,1 +1,1 @@
-export type Responsibility = 'admin' | 'deliveryman'
+export type Responsibility_Position = 'admin' | 'deliveryman'
