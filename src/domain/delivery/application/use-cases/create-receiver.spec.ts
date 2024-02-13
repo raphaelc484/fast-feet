@@ -1,6 +1,9 @@
 import { InMemoryReceiverFakeRepositories } from 'test/fake-repositories/in-memory-receiver-fake-repositories'
 import { CreateReceiverUseCase } from './create-receiver'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
+import { generateCPF } from 'test/utils/generate-cpf'
+import { makeReceiver } from 'test/factories/make-receiver'
+import { CPF } from '../../enterprise/entities/value-objects/cpf'
 
 let inMemoryReceiverFakeRepositories: InMemoryReceiverFakeRepositories
 let sut: CreateReceiverUseCase
@@ -18,39 +21,34 @@ describe('Create receiver use-case', () => {
       address: 'av teste 718',
       phonenumber: '11999999999',
       zipcode: '02266-000',
-      cpf: '111222333444',
+      cpf: generateCPF(),
       password: 'password-test',
       email: 'receiver@test.com',
     })
 
     expect(result.isRight()).toBe(true)
-    expect(inMemoryReceiverFakeRepositories.items[0]).toMatchObject({
-      name: 'Izaura',
-      address: 'av teste 718',
-      phonenumber: '11999999999',
-      zipcode: '02266-000',
-      cpf: '111222333444',
-      email: 'receiver@test.com',
-    })
+    if (result.isRight()) {
+      expect(inMemoryReceiverFakeRepositories.items[0]).toEqual(
+        result.value.receiver,
+      )
+    }
   })
 
-  it('should not be able to create a receiver with an existing email', async () => {
-    await sut.execute({
-      name: 'Izaura-1',
-      address: 'av teste 718',
-      phonenumber: '11999999999',
-      zipcode: '02266-000',
-      cpf: '111222333444',
-      password: 'password-test',
-      email: 'receiver@test.com',
+  it('should not be able to create a receiver with an existing cpf', async () => {
+    const sameCPF = generateCPF()
+
+    const receiver = makeReceiver({
+      cpf: new CPF(sameCPF),
     })
+
+    inMemoryReceiverFakeRepositories.items.push(receiver)
 
     const result = await sut.execute({
       name: 'Izaura-2',
       address: 'av teste 718',
       phonenumber: '11999999999',
       zipcode: '02266-000',
-      cpf: '111222333444',
+      cpf: sameCPF,
       password: 'password-test',
       email: 'receiver@test.com',
     })

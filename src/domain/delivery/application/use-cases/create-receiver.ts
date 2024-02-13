@@ -3,6 +3,7 @@ import { Receiver } from '../../enterprise/entities/receiver'
 import { ReceiverRepositorieContract } from '../repositories-contracts/receiver-repositorie-contract'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
 import { hash } from 'bcryptjs'
+import { CPF } from '../../enterprise/entities/value-objects/cpf'
 
 interface ReceiverPropsRequest {
   name: string
@@ -22,9 +23,7 @@ type ReceiverPropsResponse = Either<
 >
 
 export class CreateReceiverUseCase {
-  constructor(
-    private receiverRepositorieContract: ReceiverRepositorieContract,
-  ) {}
+  constructor(private receiverRepositorie: ReceiverRepositorieContract) {}
 
   async execute({
     name,
@@ -35,8 +34,9 @@ export class CreateReceiverUseCase {
     email,
     password,
   }: ReceiverPropsRequest): Promise<ReceiverPropsResponse> {
-    const findReceiverByCPF =
-      await this.receiverRepositorieContract.findWithCPF(cpf)
+    const findReceiverByCPF = await this.receiverRepositorie.findWithCPF(
+      new CPF(cpf).value,
+    )
 
     if (findReceiverByCPF) {
       return left(new UserAlreadyExistsError())
@@ -49,12 +49,12 @@ export class CreateReceiverUseCase {
       address,
       phonenumber,
       zipcode,
-      cpf,
+      cpf: new CPF(cpf),
       email,
       password: password_hash,
     })
 
-    await this.receiverRepositorieContract.create(receiver)
+    await this.receiverRepositorie.create(receiver)
 
     return right({ receiver })
   }

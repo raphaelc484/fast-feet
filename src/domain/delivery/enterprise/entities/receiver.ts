@@ -1,13 +1,14 @@
 import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { CPF } from './value-objects/cpf'
 
 interface ReceiverProps {
   name: string
   address: string
   phonenumber: string
   zipcode: string
-  cpf: string
+  cpf: CPF
   email: string
   password: string
   // longitude: string
