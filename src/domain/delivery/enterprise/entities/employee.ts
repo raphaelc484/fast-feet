@@ -2,11 +2,12 @@ import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { Responsibility_Position } from './types/responsible_position'
+import { CPF } from './value-objects/cpf'
 
 interface EmployeeProps {
   name: string
   responsibility: Responsibility_Position
-  cpf: string
+  cpf: CPF
   email: string
   password: string
   createdAt: Date

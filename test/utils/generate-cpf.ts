@@ -1,43 +1,36 @@
 export function generateCPF(): string {
-  // Generate nine random numbers
-  const cpfNumbers = Array.from({ length: 9 }, () =>
+  const nineDigits = Array.from({ length: 9 }, () =>
     Math.floor(Math.random() * 10),
-  )
+  ).join('')
+  const cpfWithoutDigits = nineDigits + '00' // placeholder for the last two digits
 
-  // Calculate the first verification digit
+  // Calculates the first verification digit
   let sum = 0
   for (let i = 0; i < 9; i++) {
-    sum += cpfNumbers[i] * (10 - i)
+    sum += parseInt(cpfWithoutDigits.charAt(i)) * (10 - i)
   }
-  let firstDigit = sum % 11
-  if (firstDigit > 9) {
-    firstDigit = 0
-  }
+  let remainder = sum % 11
+  const digit1 = remainder < 2 ? 0 : 11 - remainder
 
-  // Add the first verification digit to the CPF
-  cpfNumbers.push(firstDigit)
+  // Adds the first verification digit to the CPF
+  const cpfWithDigit1 =
+    cpfWithoutDigits.substring(0, 9) + digit1.toString() + '00'
 
-  // Calculate the second verification digit
+  // Calculates the second verification digit
   sum = 0
   for (let i = 0; i < 10; i++) {
-    sum += cpfNumbers[i] * (11 - i)
+    sum += parseInt(cpfWithDigit1.charAt(i)) * (11 - i)
   }
-  let secondDigit = sum % 11
-  if (secondDigit > 9) {
-    secondDigit = 0
-  }
+  remainder = sum % 11
+  const digit2 = remainder < 2 ? 0 : 11 - remainder
 
-  // Add the second verification digit to the CPF
-  cpfNumbers.push(secondDigit)
+  // Adds the second verification digit to the CPF
+  const cpfWithBothDigits =
+    cpfWithDigit1.substring(0, 9) + digit1.toString() + digit2.toString()
 
-  // Return the formatted CPF
-  return (
-    cpfNumbers.slice(0, 3).join('') +
-    '.' +
-    cpfNumbers.slice(3, 6).join('') +
-    '.' +
-    cpfNumbers.slice(6, 9).join('') +
-    '-' +
-    cpfNumbers.slice(9).join('')
+  // Formats the CPF with dots and dashes
+  return cpfWithBothDigits.replace(
+    /(\d{3})(\d{3})(\d{3})(\d{2})/,
+    '$1.$2.$3-$4',
   )
 }

@@ -3,6 +3,9 @@ import { CreateEmployeeUseCase } from './create-employee'
 import { WrongJobError } from '@/core/errors/errors/wrong-job-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
 import { FakeHasher } from 'test/cryptography/fake-hasher'
+import { generateCPF } from 'test/utils/generate-cpf'
+import { makeEmployee } from 'test/factories/make-employee'
+import { CPF } from '../../enterprise/entities/value-objects/cpf'
 
 let inMemoryEmployeeFakeRepositories: InMemoryEmployeeFakeRepositories
 let fakeHasher: FakeHasher
@@ -23,7 +26,7 @@ describe('Create employee use-case', () => {
     const result = await sut.execute({
       name: 'Fuji',
       responsibility: 'deliveryman',
-      cpf: '111222333444',
+      cpf: generateCPF(),
       password: 'password-test',
       email: 'email@test.com',
     })
@@ -40,7 +43,7 @@ describe('Create employee use-case', () => {
     const result = await sut.execute({
       name: 'Fuji',
       responsibility: 'test-job',
-      cpf: '111222333444',
+      cpf: generateCPF(),
       password: 'password-test',
       email: 'email@test.com',
     })
@@ -51,18 +54,18 @@ describe('Create employee use-case', () => {
   })
 
   it('should not be able to create a new employee with same cpf', async () => {
-    await sut.execute({
-      name: 'Fuji-1',
-      responsibility: 'deliveryman',
-      cpf: '111222333444',
-      password: 'password-test',
-      email: 'email@test.com',
+    const sameCPF = generateCPF()
+
+    const employee = makeEmployee({
+      cpf: new CPF(sameCPF),
     })
+
+    inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({
       name: 'Fuji-2',
       responsibility: 'deliveryman',
-      cpf: '111222333444',
+      cpf: sameCPF,
       password: 'password-test',
       email: 'email@test.com',
     })

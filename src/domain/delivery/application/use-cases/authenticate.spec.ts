@@ -29,7 +29,7 @@ describe('Authenticate use-case', () => {
     inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({
-      cpf: employee.cpf,
+      cpf: employee.cpf.value,
       password: '123456',
     })
 

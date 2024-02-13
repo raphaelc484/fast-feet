@@ -31,7 +31,7 @@ describe('Change password use-case', () => {
     inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({
-      cpf: employee.cpf,
+      cpf: employee.cpf.value,
       newPassword: '753461',
     })
 
@@ -51,7 +51,7 @@ describe('Change password use-case', () => {
     inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({
-      cpf: employee.cpf,
+      cpf: employee.cpf.value,
       newPassword: '123456',
     })
 
@@ -61,7 +61,7 @@ describe('Change password use-case', () => {
 
   it('should not be able to change password of a non-existent user', async () => {
     const result = await sut.execute({
-      cpf: '111222333444',
+      cpf: '123.456.789-00',
       newPassword: 'password-test',
     })
 

@@ -11,7 +11,7 @@ export class InMemoryEmployeeFakeRepositories
   }
 
   async findWithCPF(cpf: string): Promise<Employee | null> {
-    const employee = this.items.find((item) => item.cpf === cpf)
+    const employee = this.items.find((item) => item.cpf.value === cpf)
 
     if (!employee) {
       return null
