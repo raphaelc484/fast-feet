@@ -28,7 +28,6 @@ export class AuthenticateUseCase {
     const employee = await this.employeeRepositorie.findWithCPF(cpf)
 
     if (!employee) {
-      console.log('1')
       return left(new InvalidCredentialsError())
     }
 

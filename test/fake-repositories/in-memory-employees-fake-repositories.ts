@@ -19,4 +19,9 @@ export class InMemoryEmployeeFakeRepositories
 
     return employee
   }
+
+  async save(employee: Employee): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === employee.id)
+    this.items[itemIndex] = employee
+  }
 }

@@ -66,8 +66,10 @@ export class Employee extends Entity<EmployeeProps> {
     this.props.updatedAt = new Date()
   }
 
-  isValidResponsibility(job: string): boolean {
-    return job.includes(this.responsibility)
+  static isValidResponsibility(job: string): boolean {
+    const responsibilityPositions: string[] = ['admin', 'deliveryman']
+
+    return responsibilityPositions.includes(job)
   }
 
   static create(

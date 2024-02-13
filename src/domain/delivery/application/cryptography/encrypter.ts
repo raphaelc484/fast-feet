@@ -1,3 +1,3 @@
-export abstract class Encrypter {
-  abstract encrypt(paylod: Record<string, unknown>): Promise<string>
+export interface Encrypter {
+  encrypt(paylod: Record<string, unknown>): Promise<string>
 }

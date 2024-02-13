@@ -4,6 +4,7 @@ import { EmployeeRepositorieContract } from '../repositories-contracts/employee-
 import { WrongJobError } from '@/core/errors/errors/wrong-job-error'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
 import { HashGenerator } from '../cryptography/hash-generator'
+import { Responsibility_Position } from '../../enterprise/entities/types/responsible_position'
 
 interface EmployeePropsRequest {
   name: string
@@ -37,7 +38,9 @@ export class CreateEmployeeUseCase {
       return left(new UserAlreadyExistsError())
     }
 
-    if (responsibility !== 'admin' && responsibility !== 'deliveryman') {
+    const isValid = Employee.isValidResponsibility(responsibility)
+
+    if (!isValid) {
       return left(new WrongJobError())
     }
 
@@ -45,7 +48,7 @@ export class CreateEmployeeUseCase {
 
     const employee = Employee.create({
       name,
-      responsibility,
+      responsibility: responsibility as Responsibility_Position,
       cpf,
       password: password_hash,
       email,
