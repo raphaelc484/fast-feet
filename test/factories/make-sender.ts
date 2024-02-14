@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Receiver } from '@/domain/delivery/enterprise/entities/receiver'
+import { Sender } from '@/domain/delivery/enterprise/entities/sender'
 import { generateCPF } from 'test/utils/generate-cpf'
 import { CPF } from '@/domain/delivery/enterprise/entities/value-objects/cpf'
 
-export function makeReceiver(override: Partial<Receiver>, id?: UniqueEntityId) {
-  const receiver = Receiver.create(
+export function makeSender(override: Partial<Sender>, id?: UniqueEntityId) {
+  const sender = Sender.create(
     {
       name: faker.person.fullName(),
       address: faker.location.street(),
@@ -17,5 +17,5 @@ export function makeReceiver(override: Partial<Receiver>, id?: UniqueEntityId) {
     id,
   )
 
-  return receiver
+  return sender
 }

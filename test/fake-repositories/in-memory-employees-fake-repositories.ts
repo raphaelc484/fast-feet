@@ -24,4 +24,14 @@ export class InMemoryEmployeeFakeRepositories
     const itemIndex = this.items.findIndex((item) => item.id === employee.id)
     this.items[itemIndex] = employee
   }
+
+  async findWithID(id: string): Promise<Employee | null> {
+    const employee = this.items.find((item) => item.id.toString() === id)
+
+    if (!employee) {
+      return null
+    }
+
+    return employee
+  }
 }

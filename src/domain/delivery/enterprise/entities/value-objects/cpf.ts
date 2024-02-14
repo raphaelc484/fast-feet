@@ -2,14 +2,10 @@ export class CPF {
   public value: string
 
   constructor(value: string) {
-    value = this.formatCPF(value)
-    if (!this.isValidCPF(value)) {
-      throw new Error('CPF inválido')
-    }
     this.value = this.formatCPF(value)
   }
 
-  private isValidCPF(cpf: string): boolean {
+  static isValidCPF(cpf: string): boolean {
     // Checks if the CPF has 11 digits
     if (cpf.length !== 11) {
       return false

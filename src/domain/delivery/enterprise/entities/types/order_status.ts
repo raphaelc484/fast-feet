@@ -1,6 +1,7 @@
 export type OrderStatus =
   | 'Awaiting Processing'
   | 'Processing'
+  | 'Ready for Pickup'
   | 'In Transit'
   | 'Out for Delivery'
   | 'Delivered'

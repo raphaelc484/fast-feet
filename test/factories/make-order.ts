@@ -7,6 +7,7 @@ export function makeOrder(override: Partial<Order>, id?: UniqueEntityId) {
     {
       productName: faker.person.fullName(),
       employeeId: null,
+      senderId: new UniqueEntityId(),
       receiverId: new UniqueEntityId(),
       status: 'Awaiting Processing',
       ...override,

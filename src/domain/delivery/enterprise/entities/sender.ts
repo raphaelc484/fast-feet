@@ -3,7 +3,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { CPF } from './value-objects/cpf'
 
-interface ReceiverProps {
+interface SenderProps {
   name: string
   address: string
   phonenumber: string
@@ -15,7 +15,7 @@ interface ReceiverProps {
   updatedAt?: Date
 }
 
-export class Receiver extends Entity<ReceiverProps> {
+export class Sender extends Entity<SenderProps> {
   get name() {
     return this.props.name
   }
@@ -87,10 +87,10 @@ export class Receiver extends Entity<ReceiverProps> {
   }
 
   static create(
-    props: Optional<ReceiverProps, 'createdAt'>,
+    props: Optional<SenderProps, 'createdAt'>,
     id?: UniqueEntityId,
   ) {
-    const receiver = new Receiver(
+    const sender = new Sender(
       {
         ...props,
         createdAt: new Date(),
@@ -98,6 +98,6 @@ export class Receiver extends Entity<ReceiverProps> {
       id,
     )
 
-    return receiver
+    return sender
   }
 }

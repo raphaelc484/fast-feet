@@ -6,6 +6,7 @@ import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists
 import { HashGenerator } from '../cryptography/hash-generator'
 import { Responsibility_Position } from '../../enterprise/entities/types/responsible_position'
 import { CPF } from '../../enterprise/entities/value-objects/cpf'
+import { SomethingWrongWithCPFError } from '@/core/errors/errors/something-wrong-wtih-cpf-error'
 
 interface EmployeePropsRequest {
   name: string
@@ -16,7 +17,7 @@ interface EmployeePropsRequest {
 }
 
 type EmployeePropsResponse = Either<
-  UserAlreadyExistsError | WrongJobError,
+  SomethingWrongWithCPFError | UserAlreadyExistsError | WrongJobError,
   { employee: Employee }
 >
 
@@ -33,8 +34,16 @@ export class CreateEmployeeUseCase {
     password,
     email,
   }: EmployeePropsRequest): Promise<EmployeePropsResponse> {
+    const cpfFormated = new CPF(cpf)
+
+    const isValidCPF = CPF.isValidCPF(cpfFormated.value)
+
+    if (!isValidCPF) {
+      return left(new SomethingWrongWithCPFError())
+    }
+
     const findCPF = await this.employeeRepositorie.findWithCPF(
-      new CPF(cpf).value,
+      cpfFormated.value,
     )
 
     if (findCPF) {
@@ -52,7 +61,7 @@ export class CreateEmployeeUseCase {
     const employee = Employee.create({
       name,
       responsibility: responsibility as Responsibility_Position,
-      cpf: new CPF(cpf),
+      cpf: cpfFormated,
       password: password_hash,
       email,
     })

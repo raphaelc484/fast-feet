@@ -1,11 +1,11 @@
 import { Either, left, right } from '@/core/either'
-import { Receiver } from '../../enterprise/entities/receiver'
-import { ReceiverRepositorieContract } from '../repositories-contracts/receiver-repositorie-contract'
+import { Sender } from '../../enterprise/entities/sender'
 import { UserAlreadyExistsError } from '@/core/errors/errors/user-already-exists-error'
 import { CPF } from '../../enterprise/entities/value-objects/cpf'
 import { SomethingWrongWithCPFError } from '@/core/errors/errors/something-wrong-wtih-cpf-error'
+import { SenderRepositorieContract } from '../repositories-contracts/sender-repositorie-contract'
 
-interface ReceiverPropsRequest {
+interface SenderPropsRequest {
   name: string
   address: string
   phonenumber: string
@@ -15,13 +15,10 @@ interface ReceiverPropsRequest {
   // latitude: string
 }
 
-type ReceiverPropsResponse = Either<
-  UserAlreadyExistsError,
-  { receiver: Receiver }
->
+type SenderPropsResponse = Either<UserAlreadyExistsError, { sender: Sender }>
 
-export class CreateReceiverUseCase {
-  constructor(private receiverRepositorie: ReceiverRepositorieContract) {}
+export class CreateSenderUseCase {
+  constructor(private senderRepositorie: SenderRepositorieContract) {}
 
   async execute({
     name,
@@ -29,7 +26,7 @@ export class CreateReceiverUseCase {
     phonenumber,
     zipcode,
     cpf,
-  }: ReceiverPropsRequest): Promise<ReceiverPropsResponse> {
+  }: SenderPropsRequest): Promise<SenderPropsResponse> {
     const cpfFormated = new CPF(cpf)
     const isValidCPF = CPF.isValidCPF(cpfFormated.value)
 
@@ -37,15 +34,15 @@ export class CreateReceiverUseCase {
       return left(new SomethingWrongWithCPFError())
     }
 
-    const findReceiverByCPF = await this.receiverRepositorie.findWithCPF(
+    const findSenderByCPF = await this.senderRepositorie.findWithCPF(
       cpfFormated.value,
     )
 
-    if (findReceiverByCPF) {
+    if (findSenderByCPF) {
       return left(new UserAlreadyExistsError())
     }
 
-    const receiver = Receiver.create({
+    const sender = Sender.create({
       name,
       address,
       phonenumber,
@@ -53,8 +50,8 @@ export class CreateReceiverUseCase {
       cpf: cpfFormated,
     })
 
-    await this.receiverRepositorie.create(receiver)
+    await this.senderRepositorie.create(sender)
 
-    return right({ receiver })
+    return right({ sender })
   }
 }

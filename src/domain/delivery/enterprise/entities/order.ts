@@ -7,6 +7,7 @@ import { OrderStatus } from './types/order_status'
 interface OrderProps {
   productName: string
   employeeId: UniqueEntityId | null
+  senderId: UniqueEntityId
   receiverId: UniqueEntityId
   slug: Slug
   status: OrderStatus
@@ -36,6 +37,10 @@ export class Order extends Entity<OrderProps> {
 
   get receiverId() {
     return this.props.receiverId
+  }
+
+  get senderId() {
+    return this.props.senderId
   }
 
   get slug() {
