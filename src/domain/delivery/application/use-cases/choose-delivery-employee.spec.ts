@@ -60,7 +60,9 @@ describe('Choose employee for order use-case', () => {
     const order = makeOrder({})
     inMemoryOrderFakeRepositories.items.push(order)
 
-    const employee = makeEmployee({})
+    const employee = makeEmployee({
+      responsibility: 'admin',
+    })
     inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({
@@ -73,9 +75,7 @@ describe('Choose employee for order use-case', () => {
   })
 
   it('should not be able to choose a employee for a non existing order', async () => {
-    const employee = makeEmployee({
-      responsibility: 'deliveryman',
-    })
+    const employee = makeEmployee({})
     inMemoryEmployeeFakeRepositories.items.push(employee)
 
     const result = await sut.execute({

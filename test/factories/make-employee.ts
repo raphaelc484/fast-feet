@@ -8,7 +8,7 @@ export function makeEmployee(override: Partial<Employee>, id?: UniqueEntityId) {
   const employee = Employee.create(
     {
       name: faker.person.fullName(),
-      responsibility: 'admin',
+      responsibility: 'deliveryman',
       cpf: new CPF(generateCPF()),
       email: faker.internet.email(),
       password: faker.internet.password(),

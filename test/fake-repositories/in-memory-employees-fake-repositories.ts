@@ -1,3 +1,4 @@
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { EmployeeRepositorieContract } from '@/domain/delivery/application/repositories-contracts/employee-repositorie-contract'
 import { Employee } from '@/domain/delivery/enterprise/entities/employee'
 
@@ -33,5 +34,15 @@ export class InMemoryEmployeeFakeRepositories
     }
 
     return employee
+  }
+
+  async findManyEmployeeDelivery({
+    page,
+  }: PaginationParams): Promise<Employee[]> {
+    const employees = this.items
+      .filter((item) => item.responsibility === 'deliveryman')
+      .slice((page - 1) * 20, page * 20)
+
+    return employees
   }
 }
