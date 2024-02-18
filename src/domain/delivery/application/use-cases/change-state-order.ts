@@ -5,18 +5,6 @@ import { OrderNotFoundError } from '@/core/errors/errors/order-not-found-error'
 import { OrderStatus } from '../../enterprise/entities/types/order_status'
 import { WrongOrderStatusError } from '@/core/errors/errors/wrong-status-order-error'
 
-const validOrderStatuses: string[] = [
-  'Awaiting Processing',
-  'Processing',
-  'Ready for Pickup',
-  'In Transit',
-  'Out for Delivery',
-  'Delivered',
-  'Delivery Attempt Unsuccessful',
-  'Held at Customs',
-  'Returned to Sender',
-]
-
 interface ChangeStateOrderPropsRequest {
   orderId: string
   status: string
@@ -34,7 +22,9 @@ export class ChangeStateOrderUseCase {
     orderId,
     status,
   }: ChangeStateOrderPropsRequest): Promise<ChangeStateOrderPropsResponse> {
-    if (!validOrderStatuses.includes(status)) {
+    const isValidStatus = Order.isValidStatusOrder(status)
+
+    if (!isValidStatus) {
       return left(new WrongOrderStatusError())
     }
 

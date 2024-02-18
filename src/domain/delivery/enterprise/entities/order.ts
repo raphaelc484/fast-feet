@@ -68,6 +68,22 @@ export class Order extends Entity<OrderProps> {
     this.props.updatedAt = new Date()
   }
 
+  static isValidStatusOrder(status: string): boolean {
+    const statusOrder: string[] = [
+      'Awaiting Processing',
+      'Processing',
+      'Ready for Pickup',
+      'In Transit',
+      'Out for Delivery',
+      'Delivered',
+      'Delivery Attempt Unsuccessful',
+      'Held at Customs',
+      'Returned to Sender',
+    ]
+
+    return statusOrder.includes(status)
+  }
+
   static create(
     props: Optional<OrderProps, 'createdAt' | 'slug' | 'employeeId'>,
     id?: UniqueEntityId,
