@@ -92,7 +92,7 @@ export class Order extends Entity<OrderProps> {
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.productName),
-        employeeId: null,
+        employeeId: props.employeeId ?? null,
         createdAt: new Date(),
       },
       id,
