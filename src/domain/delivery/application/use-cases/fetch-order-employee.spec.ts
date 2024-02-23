@@ -28,14 +28,18 @@ describe('Fetch orders with employeeId use case', () => {
 
     for (let i = 1; i <= 3; i++) {
       await inMemoryOrderFakeRepositories.create(
-        makeOrder({ employeeId: employee.id }),
+        makeOrder({ employeeId: employee.id, status: 'Ready for Pickup' }),
       )
     }
+
+    // console.log(inMemoryOrderFakeRepositories.items)
 
     const result = await sut.execute({
       page: 1,
       employeeId: employee.id.toString(),
     })
+
+    // console.log(result.value)
 
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
@@ -51,7 +55,7 @@ describe('Fetch orders with employeeId use case', () => {
     inMemoryEmployeeFakeRepositories.items.push(employee)
     for (let i = 1; i <= 22; i++) {
       await inMemoryOrderFakeRepositories.create(
-        makeOrder({ employeeId: employee.id }),
+        makeOrder({ employeeId: employee.id, status: 'Ready for Pickup' }),
       )
     }
 

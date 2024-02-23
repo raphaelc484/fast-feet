@@ -11,6 +11,8 @@ export function makeReceiver(override: Partial<Receiver>, id?: UniqueEntityId) {
       address: faker.location.street(),
       phonenumber: faker.phone.number(),
       zipcode: faker.location.zipCode(),
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
       cpf: new CPF(generateCPF()),
       ...override,
     },

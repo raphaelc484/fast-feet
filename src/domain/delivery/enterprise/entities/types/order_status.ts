@@ -1,10 +1,10 @@
 export type OrderStatus =
-  | 'Awaiting Processing'
-  | 'Processing'
+  | 'Awaiting Processing' //*
+  | 'Processing' //*
   | 'Ready for Pickup'
   | 'In Transit'
   | 'Out for Delivery'
-  | 'Delivered'
+  | 'Delivered' //*
   | 'Delivery Attempt Unsuccessful'
-  | 'Held at Customs'
-  | 'Returned to Sender'
+  | 'Held at Customs' // * alfândega
+  | 'Returned to Sender' //*

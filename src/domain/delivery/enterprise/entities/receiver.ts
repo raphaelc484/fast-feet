@@ -3,14 +3,14 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { CPF } from './value-objects/cpf'
 
-interface ReceiverProps {
+export interface ReceiverProps {
   name: string
   address: string
   phonenumber: string
   zipcode: string
   cpf: CPF
-  // longitude: string
-  // latitude: string
+  longitude: number
+  latitude: number
   createdAt: Date
   updatedAt?: Date
 }
@@ -56,23 +56,23 @@ export class Receiver extends Entity<ReceiverProps> {
     return this.props.cpf
   }
 
-  // get longitude() {
-  //   return this.props.longitude
-  // }
+  get longitude() {
+    return this.props.longitude
+  }
 
-  // set longitude(longitude: string) {
-  //   this.props.longitude = longitude
-  //   this.touch()
-  // }
+  set longitude(longitude: number) {
+    this.props.longitude = longitude
+    this.touch()
+  }
 
-  // get latitude() {
-  //   return this.props.latitude
-  // }
+  get latitude() {
+    return this.props.latitude
+  }
 
-  // set latitude(latitude: string) {
-  //   this.props.latitude = latitude
-  //   this.touch()
-  // }
+  set latitude(latitude: number) {
+    this.props.latitude = latitude
+    this.touch()
+  }
 
   get createdAt() {
     return this.props.createdAt

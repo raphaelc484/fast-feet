@@ -1,5 +1,6 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { Order } from '../../enterprise/entities/order'
+import { FindManyNearbyParams } from '@/core/repositories/find-many-nearby-params'
 
 export interface OrderRepositorieContract {
   create(order: Order): Promise<void>
@@ -9,4 +10,5 @@ export interface OrderRepositorieContract {
     { page }: PaginationParams,
     employeeId: string,
   ): Promise<Order[]>
+  findManyNearby(params: FindManyNearbyParams): Promise<Order[]>
 }

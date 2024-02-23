@@ -11,6 +11,8 @@ interface OrderProps {
   receiverId: UniqueEntityId
   slug: Slug
   status: OrderStatus
+  longitude: number
+  latitude: number
   createdAt: Date
   updatedAt?: Date
 }
@@ -53,6 +55,24 @@ export class Order extends Entity<OrderProps> {
 
   set status(status: OrderStatus) {
     this.props.status = status
+    this.touch()
+  }
+
+  get longitude() {
+    return this.props.longitude
+  }
+
+  set longitude(longitude: number) {
+    this.props.longitude = longitude
+    this.touch()
+  }
+
+  get latitude() {
+    return this.props.latitude
+  }
+
+  set latitude(latitude: number) {
+    this.props.latitude = latitude
     this.touch()
   }
 

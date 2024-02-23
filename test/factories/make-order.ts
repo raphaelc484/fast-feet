@@ -10,6 +10,8 @@ export function makeOrder(override: Partial<Order>, id?: UniqueEntityId) {
       senderId: new UniqueEntityId(),
       receiverId: new UniqueEntityId(),
       status: 'Awaiting Processing',
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
       ...override,
     },
     id,
