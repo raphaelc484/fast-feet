@@ -1,8 +1,9 @@
 import { Slug } from './value-objects/slug'
-import { Entity } from '@/core/entities/entities'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { OrderStatus } from './types/order_status'
+import { AggregateRoot } from '@/core/entities/aggregate-root'
+import { OrderChangeStatusEvent } from '../events/order-change-status-event'
 
 interface OrderProps {
   productName: string
@@ -17,7 +18,7 @@ interface OrderProps {
   updatedAt?: Date
 }
 
-export class Order extends Entity<OrderProps> {
+export class Order extends AggregateRoot<OrderProps> {
   get productName() {
     return this.props.productName
   }
@@ -117,6 +118,12 @@ export class Order extends Entity<OrderProps> {
       },
       id,
     )
+
+    const isNewOrder = !id
+
+    if (isNewOrder) {
+      order.addDomainEvent(new OrderChangeStatusEvent(order))
+    }
 
     return order
   }
