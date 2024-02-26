@@ -30,7 +30,7 @@ export class ReadNotificationUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    if (recipientId !== notification.id.toString()) {
+    if (recipientId !== notification.recipientId.toString()) {
       return left(new NotAllowedError())
     }
 

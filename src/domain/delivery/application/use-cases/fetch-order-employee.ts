@@ -35,8 +35,6 @@ export class FetchOrderEmployeeUseCase {
       employeeId,
     )
 
-    console.log(orders)
-
     return right({ orders })
   }
 }

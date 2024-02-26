@@ -15,9 +15,10 @@ describe('Read Notification use case', () => {
   })
 
   it('should be able to read a notification', async () => {
+    // const
     const notification = makeNotification()
 
-    inMemoryNotificationFakeRepositories.create(notification)
+    inMemoryNotificationFakeRepositories.items.push(notification)
 
     const result = await sut.execute({
       recipientId: notification.recipientId.toString(),

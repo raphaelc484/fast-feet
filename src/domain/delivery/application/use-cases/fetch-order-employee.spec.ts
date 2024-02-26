@@ -32,14 +32,10 @@ describe('Fetch orders with employeeId use case', () => {
       )
     }
 
-    // console.log(inMemoryOrderFakeRepositories.items)
-
     const result = await sut.execute({
       page: 1,
       employeeId: employee.id.toString(),
     })
-
-    // console.log(result.value)
 
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
