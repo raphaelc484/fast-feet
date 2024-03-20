@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3333
+
+# @name register_employee
+GET {{baseUrl}}/employee
+Content-Type: application/json

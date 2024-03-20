@@ -4,7 +4,7 @@ import { Optional } from '@/core/types/optional'
 import { Responsibility_Position } from './types/responsible_position'
 import { CPF } from './value-objects/cpf'
 
-interface EmployeeProps {
+export interface EmployeeProps {
   name: string
   responsibility: Responsibility_Position
   cpf: CPF
