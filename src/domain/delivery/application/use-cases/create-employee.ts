@@ -45,7 +45,6 @@ export class CreateEmployeeUseCase {
     const findCPF = await this.employeeRepositorie.findWithCPF(
       cpfFormated.value,
     )
-
     if (findCPF) {
       return left(new UserAlreadyExistsError())
     }

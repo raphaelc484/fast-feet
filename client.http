@@ -1,5 +1,13 @@
 @baseUrl = http://localhost:3333
 
 # @name register_employee
-GET {{baseUrl}}/employee
+POST {{baseUrl}}/create-employee
 Content-Type: application/json
+
+{
+  "name": "Fuji",
+  "responsibility": "deliveryman",
+  "cpf": "639.827.825-97",
+  "password": "password-test",
+  "email": "email@test.com",
+}

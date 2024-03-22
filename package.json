@@ -3,6 +3,7 @@
 		"dev": "tsx watch src/infra/server.ts",
 		"test": "vitest run",
 		"test:watch": "vitest",
+		"test:e2e": "vitest run --config ./vite.config.e2e.ts",
 		"lint": "eslint src --ext .ts",
 		"lint:fix": "eslint src --ext .ts --fix"
 	},

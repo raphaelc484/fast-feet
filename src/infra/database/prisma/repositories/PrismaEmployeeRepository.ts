@@ -1,16 +1,14 @@
 import { EmployeeRepositorieContract } from '@/domain/delivery/application/repositories-contracts/employee-repositorie-contract'
-import { PrismaService } from '../prisma.service'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { Employee } from '@/domain/delivery/enterprise/entities/employee'
 import { PrismaEmployeeMaper } from '../mappers/mappers-employee'
+import { prisma } from '../prisma'
 
 export class PrismaEmployeeRepository implements EmployeeRepositorieContract {
-  constructor(private prisma: PrismaService) {}
-
   async create(employee: Employee): Promise<void> {
     const data = PrismaEmployeeMaper.toPrisma(employee)
 
-    await this.prisma.employee.create({
+    await prisma.employee.create({
       data,
     })
   }
