@@ -26,7 +26,7 @@ export async function createEmployee(
     hashGenerator,
   )
 
-  const t = await createEmployee.execute({
+  await createEmployee.execute({
     cpf,
     email,
     name,

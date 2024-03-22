@@ -22,7 +22,7 @@ describe('Create Employee (e2e)', () => {
       email: 'email@test.com',
     })
 
-    console.log(response)
+    console.log(response.error)
 
     expect(response.status).toEqual(201)
   })
