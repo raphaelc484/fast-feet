@@ -34,7 +34,5 @@ export async function createEmployee(
     responsibility,
   })
 
-  console.log(t)
-
   return replay.status(201).send()
 }
