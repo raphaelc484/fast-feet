@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [tsConfigPaths()],
   test: {
     environmentMatchGlobs: [['src/infra/http/contollers/**', 'prisma']],
-    dir:'src',
+    dir: 'src',
     globals: true,
     root: './',
   },

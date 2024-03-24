@@ -3,7 +3,7 @@
 		"dev": "tsx watch src/infra/server.ts",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"test:e2e": "vitest run --config ./vite.config.e2e.ts",
+		"test:e2e": "vitest run --dir src/infra/controllers",
 		"lint": "eslint src --ext .ts",
 		"lint:fix": "eslint src --ext .ts --fix",
 		"test:create-prisma-environment": "pnpm link ./prisma/vitest-environment-prisma",
