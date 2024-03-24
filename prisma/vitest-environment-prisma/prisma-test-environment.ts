@@ -4,7 +4,7 @@ export default <Environment>{
   name: 'prisma',
   transformMode: 'ssr',
   async setup() {
-    console.log('Setuo')
+    console.log('Setup')
 
     return {
       teardown() {
