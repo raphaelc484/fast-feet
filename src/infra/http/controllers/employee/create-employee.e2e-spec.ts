@@ -12,8 +12,6 @@ describe('Create Employee (e2e)', () => {
   })
 
   it('should be able to create a new employee', async () => {
-    console.log(generateCPF())
-
     const response = await request(app.server).post('/create-employee').send({
       name: 'Fuji',
       responsibility: 'deliveryman',
@@ -21,8 +19,6 @@ describe('Create Employee (e2e)', () => {
       password: 'password-test',
       email: 'email@test.com',
     })
-
-    console.log(response.error)
 
     expect(response.status).toEqual(201)
   })

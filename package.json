@@ -3,12 +3,10 @@
 		"dev": "tsx watch src/infra/server.ts",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"test:e2e": "vitest run --dir src/infra/controllers",
+    "test:e2e": "vitest run --config ./vite.config.e2e.ts",
+    "test:e2e:watch": "vitest --config ./vite.config.e2e.ts",
 		"lint": "eslint src --ext .ts",
-		"lint:fix": "eslint src --ext .ts --fix",
-		"test:create-prisma-environment": "pnpm link ./prisma/vitest-environment-prisma",
-		"test:install-prisma-environment": "pnpm link vitest-environment-prisma",
-		"pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment"
+		"lint:fix": "eslint src --ext .ts --fix"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^8.4.0",
